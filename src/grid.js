@@ -3,11 +3,13 @@ import PropTypes from 'prop-types'
 import styled from '@emotion/styled/macro'
 
 import useEffectOnFirstRender from './hooks/useEffectOnFirstRender'
+import randomUntil from './utils/random-until'
+import cellsAround from './utils/cells-around'
 
 const emptyCell = {
   visible: false,
-  isBomb: false,
-  bombsAround: 0,
+  isMine: false,
+  minesAround: 0,
 }
 
 const Row = styled.div`
@@ -31,20 +33,47 @@ const Cell = styled.div`
   }
 `
 
-export default function Grid({ numBombs, numCols, numRows }) {
+export default function Grid({ numMines, numCols, numRows }) {
   const [grid, setGrid] = useState([[]])
+  const getCellsAround = cellsAround({ numCols, numRows })
 
   useEffectOnFirstRender(() => {
-    const cols = Array(numCols).fill(emptyCell)
-    setGrid(Array(numRows).fill(cols))
+    const cells = Array(numCols * numRows).fill(emptyCell)
+
+    const minePositions = Array(numMines)
+      .fill(0)
+      .map((_, _index, filledPositions) =>
+        randomUntil(filledPositions)(numCols * numRows)
+      )
+
+    const cellsWithMines = cells.map((cell, index) => {
+      if (minePositions.includes(index)) {
+        return { ...cell, isMine: true }
+      }
+      return cell
+    })
+
+    const cellsWithMinesAndNumbers = cellsWithMines.map((cell, index) => ({
+      ...cell,
+      minesAround: getCellsAround(index)
+        .map(cellIndex => cellsWithMines[cellIndex])
+        .filter(cell => cell.isMine).length,
+    }))
+
+    setGrid(
+      Array(numRows)
+        .fill(0)
+        .map((_, index) => index * numCols)
+        .map(index => cellsWithMinesAndNumbers.slice(index, index + numCols))
+    )
   })
 
   return (
     <>
       {grid.map((row, rowIndex) => (
         <Row key={rowIndex}>
-          {row.map((_, colIndex) => (
-            <Cell key={colIndex} />
+          {row.map((cell, colIndex) => (
+            <Cell key={colIndex}>{cell.isMine ? 'X' : cell.minesAround}</Cell>
           ))}
         </Row>
       ))}
@@ -53,13 +82,13 @@ export default function Grid({ numBombs, numCols, numRows }) {
 }
 
 Grid.propTypes = {
-  numBombs: PropTypes.number,
+  numMines: PropTypes.number,
   numCols: PropTypes.number,
   numRows: PropTypes.number,
 }
 
 Grid.defaultProps = {
-  numBombs: 0,
+  numMines: 0,
   numCols: 1,
   numRows: 1,
 }

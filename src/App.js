@@ -16,7 +16,7 @@ function App() {
   return (
     <Main>
       <Title>Minesweeper</Title>
-      <Grid numCols={10} numRows={10} />
+      <Grid numCols={10} numRows={10} numMines={30} />
     </Main>
   )
 }
