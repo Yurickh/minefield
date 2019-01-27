@@ -1,10 +1,26 @@
 import React from 'react'
 import styled from '@emotion/styled/macro'
 
+function getColorFor(number) {
+  const colors = [
+    'blue',
+    'green',
+    'red',
+    'dark-blue',
+    'brown',
+    'cyan',
+    'black',
+    'gray',
+  ]
+
+  return colors[number - 1]
+}
+
 const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1.5em;
   height: 2em;
   width: 2em;
   padding: 0.2em;
@@ -20,6 +36,10 @@ const Button = styled.button`
     border-top-color: #aeaeae;
   `}
 
+  ${({ children }) =>
+    children !== '💣 ' &&
+    `color: ${getColorFor(children)};`}
+
   background-color: #b2b2b2;
 
   cursor: pointer;
@@ -32,10 +52,12 @@ const Button = styled.button`
   }
 `
 
-export default function Cell({ cell, setCell, row, col }) {
+function Cell({ cell, setCell }) {
   return (
     <Button visible={cell.visible} onClick={() => setCell({ visible: true })}>
-      {cell.visible && (cell.isMine ? 'X' : cell.minesAround || '')}
+      {cell.visible && (cell.isMine ? '💣 ' : cell.minesAround || '')}
     </Button>
   )
 }
+
+export default React.memo(Cell)
