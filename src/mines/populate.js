@@ -5,6 +5,7 @@ const emptyCell = {
   visible: false,
   isMine: false,
   minesAround: 0,
+  marked: false,
 }
 
 export default function populate({ numMines, numCols, numRows }) {

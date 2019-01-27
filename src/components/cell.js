@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import styled from '@emotion/styled/macro'
 
 function getColorFor(number) {
@@ -52,10 +52,35 @@ const Button = styled.button`
   }
 `
 
+function getSymbolFor(cell) {
+  if (cell.marked) return '🚩 '
+  if (!cell.visible) return ''
+  if (cell.isMine) return '💣 '
+
+  return cell.minesAround || ''
+}
+
 function Cell({ cell, setCell }) {
+  const handleClick = useCallback(() => {
+    if (!cell.marked) {
+      setCell({ visible: true })
+    }
+  }, [setCell, cell])
+  const handleRightClick = useCallback(
+    event => {
+      event.preventDefault()
+      setCell({ marked: !cell.marked })
+    },
+    [setCell, cell]
+  )
+
   return (
-    <Button visible={cell.visible} onClick={() => setCell({ visible: true })}>
-      {cell.visible && (cell.isMine ? '💣 ' : cell.minesAround || '')}
+    <Button
+      visible={cell.visible}
+      onClick={handleClick}
+      onContextMenu={handleRightClick}
+    >
+      {getSymbolFor(cell)}
     </Button>
   )
 }
