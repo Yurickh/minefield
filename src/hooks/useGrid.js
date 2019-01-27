@@ -12,7 +12,7 @@ export default function useGrid(stats) {
   })
 
   const setCell = useCallback(
-    ({ col, row }, cell) =>
+    ({ col, row }) => cell =>
       setGrid(
         produce(grid, draft => {
           draft[row][col] = {

@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled/macro'
 
-import Title from './title'
-import Grid from './grid'
+import Title from './components/title'
+import Grid from './components/grid'
 
 const Main = styled.main`
   display: flex;
