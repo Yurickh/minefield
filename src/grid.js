@@ -3,14 +3,7 @@ import PropTypes from 'prop-types'
 import styled from '@emotion/styled/macro'
 
 import useEffectOnFirstRender from './hooks/useEffectOnFirstRender'
-import randomUntil from './utils/random-until'
-import cellsAround from './utils/cells-around'
-
-const emptyCell = {
-  visible: false,
-  isMine: false,
-  minesAround: 0,
-}
+import populate from './mines/populate'
 
 const Row = styled.div`
   display: flex;
@@ -35,37 +28,9 @@ const Cell = styled.div`
 
 export default function Grid({ numMines, numCols, numRows }) {
   const [grid, setGrid] = useState([[]])
-  const getCellsAround = cellsAround({ numCols, numRows })
 
   useEffectOnFirstRender(() => {
-    const cells = Array(numCols * numRows).fill(emptyCell)
-
-    const minePositions = Array(numMines)
-      .fill(0)
-      .map((_, _index, filledPositions) =>
-        randomUntil(filledPositions)(numCols * numRows)
-      )
-
-    const cellsWithMines = cells.map((cell, index) => {
-      if (minePositions.includes(index)) {
-        return { ...cell, isMine: true }
-      }
-      return cell
-    })
-
-    const cellsWithMinesAndNumbers = cellsWithMines.map((cell, index) => ({
-      ...cell,
-      minesAround: getCellsAround(index)
-        .map(cellIndex => cellsWithMines[cellIndex])
-        .filter(cell => cell.isMine).length,
-    }))
-
-    setGrid(
-      Array(numRows)
-        .fill(0)
-        .map((_, index) => index * numCols)
-        .map(index => cellsWithMinesAndNumbers.slice(index, index + numCols))
-    )
+    setGrid(populate({ numMines, numCols, numRows }))
   })
 
   return (
