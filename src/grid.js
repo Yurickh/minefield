@@ -14,6 +14,23 @@ const Row = styled.div`
   display: flex;
 `
 
+const Cell = styled.div`
+  border: 0.3em outset #686868;
+  border-top-color: rgb(174, 174, 174);
+  padding: 0.2em;
+  background-color: #b2b2b2;
+  cursor: pointer;
+  box-sizing: border-box;
+  user-select: none;
+  height: 2em;
+  width: 2em;
+
+  :active {
+    border: none;
+    padding: 0.481em; /* visual compensation */
+  }
+`
+
 export default function Grid({ numBombs, numCols, numRows }) {
   const [grid, setGrid] = useState([[]])
 
@@ -23,17 +40,15 @@ export default function Grid({ numBombs, numCols, numRows }) {
   })
 
   return (
-    <div>
+    <>
       {grid.map((row, rowIndex) => (
-        <Row>
+        <Row key={rowIndex}>
           {row.map((_, colIndex) => (
-            <div>
-              Cell number {rowIndex},{colIndex}
-            </div>
+            <Cell key={colIndex} />
           ))}
         </Row>
       ))}
-    </div>
+    </>
   )
 }
 
