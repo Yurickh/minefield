@@ -2,6 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled/macro'
 
 import Title from './title'
+import Grid from './grid'
 
 const Main = styled.main`
   display: flex;
@@ -15,6 +16,7 @@ function App() {
   return (
     <Main>
       <Title>Minesweeper</Title>
+      <Grid numCols={10} numRows={10} />
     </Main>
   )
 }
