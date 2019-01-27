@@ -1,7 +1,5 @@
-import React, { useCallback, useContext } from 'react'
+import React from 'react'
 import styled from '@emotion/styled/macro'
-
-import AppContext from '../context/app'
 
 function getColorFor(number) {
   const colors = [
@@ -62,33 +60,19 @@ function getSymbolFor(cell) {
   return cell.minesAround || ''
 }
 
-function Cell({ cell, setCell }) {
-  const { onBomb, locked } = useContext(AppContext)
+function preventDefault(fn) {
+  return event => {
+    event.preventDefault()
+    fn()
+  }
+}
 
-  const handleClick = useCallback(() => {
-    if (!locked && !cell.marked) {
-      setCell({ visible: true })
-
-      if (cell.isMine) {
-        onBomb()
-      }
-    }
-  }, [setCell, cell])
-  const handleRightClick = useCallback(
-    event => {
-      event.preventDefault()
-      if (!locked) {
-        setCell({ marked: !cell.marked })
-      }
-    },
-    [setCell, cell]
-  )
-
+function Cell({ cell, selectCell, markCell }) {
   return (
     <Button
       visible={cell.visible}
-      onClick={handleClick}
-      onContextMenu={handleRightClick}
+      onClick={selectCell}
+      onContextMenu={preventDefault(markCell)}
     >
       {getSymbolFor(cell)}
     </Button>

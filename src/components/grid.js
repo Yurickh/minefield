@@ -10,7 +10,11 @@ const Row = styled.div`
 `
 
 export default function Grid({ numMines, numCols, numRows }) {
-  const [grid, setCell] = useGrid({ numMines, numCols, numRows })
+  const [grid, { selectCell, markCell }] = useGrid({
+    numMines,
+    numCols,
+    numRows,
+  })
 
   return (
     <>
@@ -20,7 +24,8 @@ export default function Grid({ numMines, numCols, numRows }) {
             <Cell
               cell={cell}
               key={colIndex}
-              setCell={setCell({ row: rowIndex, col: colIndex })}
+              selectCell={() => selectCell({ row: rowIndex, col: colIndex })}
+              markCell={() => markCell({ row: rowIndex, col: colIndex })}
             />
           ))}
         </Row>
