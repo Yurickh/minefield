@@ -1,24 +1,36 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from '@emotion/styled/macro'
 
-import useEffectOnFirstRender from './hooks/useEffectOnFirstRender'
-import populate from './mines/populate'
+import useGrid from './hooks/useGrid'
 
 const Row = styled.div`
   display: flex;
 `
 
 const Cell = styled.div`
-  border: 0.3em outset #686868;
-  border-top-color: rgb(174, 174, 174);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2em;
+  width: 2em;
   padding: 0.2em;
+
+  font-family: sans-serif;
+  font-weight: bold;
+
+  ${({ visible }) =>
+    !visible &&
+    `
+    border: 0.3em outset #686868;
+    border-top-color: #aeaeae;
+  `}
+
   background-color: #b2b2b2;
+
   cursor: pointer;
   box-sizing: border-box;
   user-select: none;
-  height: 2em;
-  width: 2em;
 
   :active {
     border: none;
@@ -27,18 +39,22 @@ const Cell = styled.div`
 `
 
 export default function Grid({ numMines, numCols, numRows }) {
-  const [grid, setGrid] = useState([[]])
-
-  useEffectOnFirstRender(() => {
-    setGrid(populate({ numMines, numCols, numRows }))
-  })
+  const [grid, setCell] = useGrid({ numMines, numCols, numRows })
 
   return (
     <>
       {grid.map((row, rowIndex) => (
         <Row key={rowIndex}>
           {row.map((cell, colIndex) => (
-            <Cell key={colIndex}>{cell.isMine ? 'X' : cell.minesAround}</Cell>
+            <Cell
+              key={colIndex}
+              visible={cell.visible}
+              onClick={() =>
+                setCell({ row: rowIndex, col: colIndex }, { visible: true })
+              }
+            >
+              {cell.visible && (cell.isMine ? 'X' : cell.minesAround || '')}
+            </Cell>
           ))}
         </Row>
       ))}
