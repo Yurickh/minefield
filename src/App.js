@@ -1,18 +1,21 @@
 import React from 'react'
-import './App.css'
+import styled from '@emotion/styled/macro'
 
-const unmarkedCell = {
-  revealed: false,
-  amount: 0
-}
+import Title from './title'
+
+const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 5vh 25vw;
+`
 
 function App() {
-  const numberOfCells = 10
-
   return (
-    <main>
-      <h1>Minefield</h1>
-    </main>
+    <Main>
+      <Title>Minesweeper</Title>
+    </Main>
   )
 }
 
