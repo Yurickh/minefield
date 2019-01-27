@@ -13,6 +13,16 @@ const Main = styled.main`
   padding: 5vh 25vw;
 `
 
+const Button = styled.button`
+  padding: 0.5em 1em;
+  background-color: blue;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  font-size: 1em;
+`
+
 function App() {
   const [tries, setTries] = useState(0)
   const [finished, setFinished] = useState(false)
@@ -35,7 +45,7 @@ function App() {
       <Main>
         <Title>Minesweeper</Title>
         <Grid key={tries} numCols={10} numRows={10} numMines={30} />
-        <button onClick={restart}>Restart</button>
+        <Button onClick={restart}>Restart</Button>
       </Main>
     </AppContext.Provider>
   )

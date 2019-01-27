@@ -9,6 +9,11 @@ const Row = styled.div`
   display: flex;
 `
 
+const Container = styled.div`
+  width: ${({ numCols }) => numCols * 3}em;
+  height: ${({ numRows }) => numRows * 3}em;
+`
+
 export default function Grid({ numMines, numCols, numRows }) {
   const [grid, { selectCell, markCell }] = useGrid({
     numMines,
@@ -17,7 +22,7 @@ export default function Grid({ numMines, numCols, numRows }) {
   })
 
   return (
-    <>
+    <Container numCols={numCols} numRows={numRows}>
       {grid.map((row, rowIndex) => (
         <Row key={rowIndex}>
           {row.map((cell, colIndex) => (
@@ -30,7 +35,7 @@ export default function Grid({ numMines, numCols, numRows }) {
           ))}
         </Row>
       ))}
-    </>
+    </Container>
   )
 }
 
