@@ -1,11 +1,11 @@
 {
-  "main.js": "/static/js/main.f4bdf830.chunk.js",
-  "main.js.map": "/static/js/main.f4bdf830.chunk.js.map",
-  "static/js/1.214b9f41.chunk.js": "/static/js/1.214b9f41.chunk.js",
-  "static/js/1.214b9f41.chunk.js.map": "/static/js/1.214b9f41.chunk.js.map",
-  "runtime~main.js": "/static/js/runtime~main.229c360f.js",
-  "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
-  "index.html": "/index.html",
-  "precache-manifest.9b6b29083681ca1ee4d4ad9f962824c2.js": "/precache-manifest.9b6b29083681ca1ee4d4ad9f962824c2.js",
-  "service-worker.js": "/service-worker.js"
+  "main.js": "/minefield/static/js/main.f4bdf830.chunk.js",
+  "main.js.map": "/minefield/static/js/main.f4bdf830.chunk.js.map",
+  "static/js/1.214b9f41.chunk.js": "/minefield/static/js/1.214b9f41.chunk.js",
+  "static/js/1.214b9f41.chunk.js.map": "/minefield/static/js/1.214b9f41.chunk.js.map",
+  "runtime~main.js": "/minefield/static/js/runtime~main.c27cec65.js",
+  "runtime~main.js.map": "/minefield/static/js/runtime~main.c27cec65.js.map",
+  "index.html": "/minefield/index.html",
+  "precache-manifest.4d617d2d92123e20fff5af301aecb5fd.js": "/minefield/precache-manifest.4d617d2d92123e20fff5af301aecb5fd.js",
+  "service-worker.js": "/minefield/service-worker.js"
 }
