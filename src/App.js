@@ -44,7 +44,7 @@ function App() {
     <AppContext.Provider value={context}>
       <Main>
         <Title>Minesweeper</Title>
-        <Grid key={tries} numCols={10} numRows={10} numMines={10} />
+        <Grid key={tries} numCols={16} numRows={16} numMines={40} />
         <Button onClick={restart}>Restart</Button>
       </Main>
     </AppContext.Provider>
