@@ -1,11 +1,11 @@
 {
-  "main.js": "/minefield/static/js/main.87fd420b.chunk.js",
-  "main.js.map": "/minefield/static/js/main.87fd420b.chunk.js.map",
+  "main.js": "/minefield/static/js/main.a2a01c9b.chunk.js",
+  "main.js.map": "/minefield/static/js/main.a2a01c9b.chunk.js.map",
   "static/js/1.17365bfd.chunk.js": "/minefield/static/js/1.17365bfd.chunk.js",
   "static/js/1.17365bfd.chunk.js.map": "/minefield/static/js/1.17365bfd.chunk.js.map",
   "runtime~main.js": "/minefield/static/js/runtime~main.c27cec65.js",
   "runtime~main.js.map": "/minefield/static/js/runtime~main.c27cec65.js.map",
   "index.html": "/minefield/index.html",
-  "precache-manifest.6699ea4904699474aaa3b2285bd6f9e7.js": "/minefield/precache-manifest.6699ea4904699474aaa3b2285bd6f9e7.js",
+  "precache-manifest.f09c5e6f1763ca0a00791ab1ae161a17.js": "/minefield/precache-manifest.f09c5e6f1763ca0a00791ab1ae161a17.js",
   "service-worker.js": "/minefield/service-worker.js"
 }
