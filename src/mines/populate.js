@@ -8,15 +8,22 @@ const emptyCell = {
   marked: false,
 }
 
+function getRandomMinePositions(range, mines) {
+  const randomizeMine = (forbidden, numMines) => {
+    if (numMines <= 0) return forbidden
+    const newMinePosition = randomUntil(forbidden)(range)
+
+    return randomizeMine([...forbidden, newMinePosition], numMines - 1)
+  }
+
+  return randomizeMine([], mines)
+}
+
 export default function populate({ numMines, numCols, numRows }) {
   const cells = Array(numCols * numRows).fill(emptyCell)
   const getCellsAround = cellsAround({ numCols, numRows })
 
-  const minePositions = Array(numMines)
-    .fill(0)
-    .map((_, _index, filledPositions) =>
-      randomUntil(filledPositions)(numCols * numRows)
-    )
+  const minePositions = getRandomMinePositions(numCols * numRows, numMines)
 
   const cellsWithMines = cells.map((cell, index) => {
     if (minePositions.includes(index)) {

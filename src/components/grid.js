@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from '@emotion/styled/macro'
 
@@ -15,6 +15,7 @@ const Container = styled.div`
 `
 
 export default function Grid({ numMines, numCols, numRows }) {
+  const [markedAmount, setMarkedAmount] = useState(0)
   const [grid, { selectCell, markCell }] = useGrid({
     numMines,
     numCols,
@@ -30,11 +31,17 @@ export default function Grid({ numMines, numCols, numRows }) {
               cell={cell}
               key={colIndex}
               selectCell={() => selectCell({ row: rowIndex, col: colIndex })}
-              markCell={() => markCell({ row: rowIndex, col: colIndex })}
+              markCell={() => {
+                markCell({ row: rowIndex, col: colIndex })
+                setMarkedAmount(marked => marked + 1)
+              }}
             />
           ))}
         </Row>
       ))}
+      <div>
+        {markedAmount} / {numMines}
+      </div>
     </Container>
   )
 }
