@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export default function useEffectOnFirstRender(callback) {
+export default function useEffectOnFirstRender(callback, dependencies = []) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -8,5 +8,5 @@ export default function useEffectOnFirstRender(callback) {
       setMounted(true)
       callback()
     }
-  })
+  }, [...dependencies, mounted, setMounted, callback])
 }
