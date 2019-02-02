@@ -67,11 +67,12 @@ function preventDefault(fn) {
   }
 }
 
-function Cell({ cell, selectCell, markCell }) {
+function Cell({ cell, selectCell, markCell, selectCellsAround }) {
   return (
     <Button
       visible={cell.visible}
       onClick={selectCell}
+      onDoubleClick={selectCellsAround}
       onContextMenu={preventDefault(markCell)}
     >
       {getSymbolFor(cell)}

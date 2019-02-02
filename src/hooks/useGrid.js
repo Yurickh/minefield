@@ -4,10 +4,7 @@ import produce from 'immer'
 import useEffectOnFirstRender from './useEffectOnFirstRender'
 import populate from '../mines/populate'
 import cellsAround from '../mines/cells-around'
-import {
-  coordinatesFromIndex,
-  indexFromCoordinates,
-} from '../mines/coordinates'
+import { indexFromCoordinates } from '../mines/coordinates'
 
 import AppContext from '../context/app'
 
@@ -15,7 +12,6 @@ export default function useGrid(stats) {
   const { onBomb, locked } = useContext(AppContext)
   const [grid, setGrid] = useState([[]])
   const findCellsAround = cellsAround(stats)
-  const fromIndex = coordinatesFromIndex(stats)
   const toIndex = indexFromCoordinates(stats)
 
   useEffectOnFirstRender(() => {
@@ -44,10 +40,10 @@ export default function useGrid(stats) {
       }
 
       if (cell.minesAround === 0) {
-        findCellsAround(toIndex({ row, col })).forEach(index => {
-          if (!visited.current.has(index)) {
-            visited.current.add(index)
-            selectCell(fromIndex(index))
+        findCellsAround({ row, col }).forEach(position => {
+          if (!visited.current.has(toIndex(position))) {
+            visited.current.add(toIndex(position))
+            selectCell(position)
           }
         })
       }

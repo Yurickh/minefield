@@ -5,6 +5,8 @@ import styled from '@emotion/styled/macro'
 import Cell from './cell'
 import useGrid from '../hooks/useGrid'
 
+import cellsAround from '../mines/cells-around'
+
 const Row = styled.div`
   display: flex;
 `
@@ -27,6 +29,8 @@ export default function Grid({ numMines, numCols, numRows }) {
     0
   )
 
+  const findCellsAround = cellsAround({ numCols, numRows })
+
   return (
     <Container numCols={numCols} numRows={numRows}>
       {grid.map((row, rowIndex) => (
@@ -36,6 +40,11 @@ export default function Grid({ numMines, numCols, numRows }) {
               cell={cell}
               key={colIndex}
               selectCell={() => selectCell({ row: rowIndex, col: colIndex })}
+              selectCellsAround={() =>
+                findCellsAround({ row: rowIndex, col: colIndex }).forEach(
+                  selectCell
+                )
+              }
               markCell={() => markCell({ row: rowIndex, col: colIndex })}
             />
           ))}

@@ -1,4 +1,6 @@
 import cellsAround from './cells-around'
+import { indexFromCoordinates, coordinatesFromIndex } from './coordinates'
+
 import randomUntil from '../utils/random-until'
 
 const emptyCell = {
@@ -32,10 +34,13 @@ export default function populate({ numMines, numCols, numRows }) {
     return cell
   })
 
+  const fromIndex = coordinatesFromIndex({ numCols, numRows })
+  const toIndex = indexFromCoordinates({ numCols, numRows })
+
   const cellsWithMinesAndNumbers = cellsWithMines.map((cell, index) => ({
     ...cell,
-    minesAround: getCellsAround(index)
-      .map(cellIndex => cellsWithMines[cellIndex])
+    minesAround: getCellsAround(fromIndex(index))
+      .map(position => cellsWithMines[toIndex(position)])
       .filter(cell => cell.isMine).length,
   }))
 
