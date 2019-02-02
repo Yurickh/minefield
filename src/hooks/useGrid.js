@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useRef } from 'react'
 import produce from 'immer'
 
 import useEffectOnFirstRender from './useEffectOnFirstRender'
@@ -32,7 +32,9 @@ export default function useGrid(stats) {
       })
     )
 
-  const selectCell = ({ row, col }, cache = []) => {
+  const visited = useRef(new Set())
+
+  const selectCell = ({ row, col }) => {
     const cell = grid[row][col]
     if (!locked && !cell.marked) {
       setCell({ row, col })({ visible: true })
@@ -43,8 +45,9 @@ export default function useGrid(stats) {
 
       if (cell.minesAround === 0) {
         findCellsAround(toIndex({ row, col })).forEach(index => {
-          if (!cache.includes(index)) {
-            selectCell(fromIndex(index), [...cache, index])
+          if (!visited.current.has(index)) {
+            visited.current.add(index)
+            selectCell(fromIndex(index))
           }
         })
       }
