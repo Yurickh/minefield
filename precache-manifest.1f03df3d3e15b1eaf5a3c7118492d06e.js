@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "a2a01c9b3ef1e76f7a5d",
-    "url": "/minefield/static/js/main.a2a01c9b.chunk.js"
+    "revision": "e04e026756e87988d593",
+    "url": "/minefield/static/js/main.e04e0267.chunk.js"
   },
   {
     "revision": "17365bfd1e9d11b35225",
@@ -12,7 +12,7 @@ self.__precacheManifest = [
     "url": "/minefield/static/js/runtime~main.c27cec65.js"
   },
   {
-    "revision": "803c19cfda985e887bdc3cdb892bb260",
+    "revision": "b1e9aa941bff94a8cc5b5ad01282e25c",
     "url": "/minefield/index.html"
   }
 ];
