@@ -51,8 +51,9 @@ export default function useGrid(stats) {
   }
 
   const markCell = ({ col, row }) => {
-    if (!locked) {
-      setCell({ col, row })({ marked: !grid[row][col].marked })
+    const cell = grid[row][col]
+    if (!locked && !cell.visible) {
+      setCell({ col, row })({ marked: !cell.marked })
     }
   }
 
