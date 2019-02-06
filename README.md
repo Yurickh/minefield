@@ -1,6 +1,6 @@
 # Minefield
 
-A minesweeper game with hooks
+A minesweeper game with hooks.
 
 ## Running
 
@@ -9,3 +9,6 @@ A minesweeper game with hooks
 ## Testing
 
 // todo :(
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTE4MTQ2MjkxOTRdfQ==
+-->
