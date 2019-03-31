@@ -9,8 +9,6 @@ describe('Cell', () => {
   beforeEach(() => {
     baseProps = {
       cell: {
-        row: 0,
-        col: 0,
         minesAround: 0,
       },
       selectCell: jest.fn(),

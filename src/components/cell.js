@@ -115,8 +115,6 @@ function Cell({ cell, selectCell, markCell, selectCellsAround }) {
 
 Cell.propTypes = {
   cell: PropTypes.shape({
-    row: PropTypes.number.isRequired,
-    col: PropTypes.number.isRequired,
     minesAround: PropTypes.number.isRequired,
     isMine: PropTypes.bool,
     visible: PropTypes.bool,
