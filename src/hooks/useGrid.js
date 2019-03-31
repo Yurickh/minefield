@@ -1,7 +1,6 @@
-import { useState, useContext, useRef } from 'react'
-import produce from 'immer'
+import { useEffect, useState, useContext, useRef } from 'react'
+import immer from 'immer'
 
-import useEffectOnFirstRender from './useEffectOnFirstRender'
 import populate from '../mines/populate'
 import cellsAround from '../mines/cells-around'
 import { indexFromCoordinates } from '../mines/coordinates'
@@ -9,18 +8,20 @@ import { indexFromCoordinates } from '../mines/coordinates'
 import AppContext from '../context/app'
 
 export default function useGrid(stats) {
+  const { numCols, numRows, numMines } = stats
+
   const { onBomb, locked } = useContext(AppContext)
   const [grid, setGrid] = useState([[]])
   const findCellsAround = cellsAround(stats)
   const toIndex = indexFromCoordinates(stats)
 
-  useEffectOnFirstRender(() => {
-    setGrid(populate(stats))
-  })
+  useEffect(() => {
+    setGrid(populate({ numCols, numRows, numMines }))
+  }, [numCols, numRows, numMines])
 
   const setCell = ({ col, row }) => partial =>
     setGrid(minefield =>
-      produce(minefield, draft => {
+      immer(minefield, draft => {
         draft[row][col] = {
           ...draft[row][col],
           ...partial,
