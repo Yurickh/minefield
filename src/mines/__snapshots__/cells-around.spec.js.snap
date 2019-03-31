@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cells-around gets the cells around the center 1`] = `
+"
+.....
+.###.
+.#.#.
+.###.
+....."
+`;
+
+exports[`cells-around gets the cells around the corner 1`] = `
+"
+.#...
+##...
+.....
+.....
+....."
+`;
+
+exports[`cells-around gets the cells around the corner 2`] = `
+"
+.....
+.....
+.....
+...##
+...#."
+`;
+
+exports[`cells-around gets the cells around the corner 3`] = `
+"
+...#.
+...##
+.....
+.....
+....."
+`;
+
+exports[`cells-around gets the cells around the corner 4`] = `
+"
+.....
+.....
+.....
+##...
+.#..."
+`;
