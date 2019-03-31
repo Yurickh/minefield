@@ -27,25 +27,19 @@ export default function populate({ numMines, numCols, numRows }) {
 
   const minePositions = getRandomMinePositions(numCols * numRows, numMines)
 
-  const cellsWithMines = cells.map((cell, index) => {
-    if (minePositions.includes(index)) {
-      return { ...cell, isMine: true }
-    }
-    return cell
-  })
-
   const fromIndex = coordinatesFromIndex({ numCols, numRows })
   const toIndex = indexFromCoordinates({ numCols, numRows })
 
-  const cellsWithMinesAndNumbers = cellsWithMines.map((cell, index) => ({
+  const cellsWithMines = cells.map((cell, index) => ({
     ...cell,
-    minesAround: getCellsAround(fromIndex(index))
-      .map(position => cellsWithMines[toIndex(position)])
-      .filter(cell => cell.isMine).length,
+    isMine: minePositions.includes(index),
+    minesAround: getCellsAround(fromIndex(index)).filter(position =>
+      minePositions.includes(toIndex(position))
+    ).length,
   }))
 
   return Array(numRows)
     .fill(0)
     .map((_, index) => index * numCols)
-    .map(index => cellsWithMinesAndNumbers.slice(index, index + numCols))
+    .map(index => cellsWithMines.slice(index, index + numCols))
 }
