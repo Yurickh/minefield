@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from '@emotion/styled/macro'
 
 function getColorFor(number) {
@@ -69,9 +70,9 @@ function getDescriptionFor(cell) {
     case 'mine':
       return 'Mine'
     case 'none':
-      return `No mines around this cell`
+      return `No mine around this cell`
     default:
-      return `${describe(cell)} mines aroudn this cell`
+      return `${cell.minesAround} mines around this cell`
   }
 }
 
@@ -110,6 +111,26 @@ function Cell({ cell, selectCell, markCell, selectCellsAround }) {
       {getSymbolFor(cell)}
     </Button>
   )
+}
+
+Cell.propTypes = {
+  cell: PropTypes.shape({
+    row: PropTypes.number.isRequired,
+    col: PropTypes.number.isRequired,
+    minesAround: PropTypes.number.isRequired,
+    isMine: PropTypes.bool,
+    visible: PropTypes.bool,
+    marked: PropTypes.bool,
+  }).isRequired,
+  // event -> any
+  // expect side effects to update cell prop's visible parameter
+  selectCell: PropTypes.func.isRequired,
+  // event -> any
+  // expect side effects to update cell prop's marked parameter
+  markCell: PropTypes.func.isRequired,
+  // event -> any
+  // expect side effects to update the surrounding cells' visible parameter
+  selectCellsAround: PropTypes.func.isRequired,
 }
 
 export default React.memo(Cell)
