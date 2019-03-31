@@ -52,12 +52,43 @@ const Button = styled.button`
   }
 `
 
-function getSymbolFor(cell) {
-  if (cell.marked) return '🚩 '
-  if (!cell.visible) return ''
-  if (cell.isMine) return '💣 '
+function describe(cell) {
+  if (cell.marked) return 'marked'
+  if (!cell.visible) return 'invisible'
+  if (cell.isMine) return 'mine'
 
-  return cell.minesAround || ''
+  return cell.minesAround || 'none'
+}
+
+function getDescriptionFor(cell) {
+  switch (describe(cell)) {
+    case 'marked':
+      return 'Marked cell'
+    case 'invisible':
+      return 'Hidden cell'
+    case 'mine':
+      return 'Mine'
+    case 'none':
+      return `No mines around this cell`
+    default:
+      return `${describe(cell)} mines aroudn this cell`
+  }
+}
+
+function getSymbolFor(cell) {
+  switch (describe(cell)) {
+    case 'marked':
+      return '🚩 '
+    case 'invisible':
+      return ''
+    case 'mine':
+      return '💣 '
+    case 'none':
+      return ''
+
+    default:
+      return cell.minesAround
+  }
 }
 
 function preventDefault(fn) {
@@ -74,6 +105,7 @@ function Cell({ cell, selectCell, markCell, selectCellsAround }) {
       onClick={selectCell}
       onDoubleClick={selectCellsAround}
       onContextMenu={preventDefault(markCell)}
+      aria-label={getDescriptionFor(cell)}
     >
       {getSymbolFor(cell)}
     </Button>
