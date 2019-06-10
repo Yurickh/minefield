@@ -1,16 +1,9 @@
 {
   "extends": [
-    "eslint:recommended",
     "react-app",
-    "plugin:jsx-a11y/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "prettier",
     "prettier/react"
-  ],
-  "plugins": ["react-hooks"],
-  "rules": {
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
-  }
+  ]
 }
